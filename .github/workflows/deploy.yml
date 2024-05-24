@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-node
+      - uses: yoko0180/actions/.github/actions/setup-node
       - run: pnpm build    
       - uses: actions/upload-pages-artifact@v3
         with:
