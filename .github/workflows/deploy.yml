@@ -2,6 +2,13 @@ name: Deploy to Pages
 
 on:
   workflow_call:
+    inputs:
+      upload-path:
+        required: true
+        type: string
+      build-command:
+        type: string
+        default: 'pnpm build'
 
 jobs:
   build:
@@ -18,10 +25,10 @@ jobs:
       - name: Install deps
         run: corepack enable && pnpm install
         shell: bash
-      - run: pnpm build    
+      - run: ${{ inputs.build-command }}
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ${{ inputs.upload-path }}
           
   deploy:
     needs: build
