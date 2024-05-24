@@ -8,7 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: yoko0180/actions/.github/actions/setup-node
+      - uses: pnpm/action-setup@v3
+        with:
+          version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install deps
+        run: corepack enable && pnpm install
+        shell: bash
       - run: pnpm build    
       - uses: actions/upload-pages-artifact@v3
         with:
